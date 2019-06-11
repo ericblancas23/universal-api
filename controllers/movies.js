@@ -1,17 +1,30 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const movieModel = require('../controllers/movies');
 
-const MovieSchema = new Schema({
-    name: {
-        type: String,
-        trim: true,
-        required: true,
+module.exports = {
+    getIdByFunc: function(req,res, next) {
+        console.log(req.body);
+        movieModel.findById(req.params.movieId, function(err, movieInfo) {
+            if(err) {
+                next(err);
+            } else {
+                res.json({status: 'success', message: 'movie found', data: {movies: movieInfo}});
+            }
+        });
     },
-    realeased_on : {
-        type: Date,
-        trim: true,
-        required: true,
+    getAll: function(req,res,next) {
+        let movieList = [];
+        movieModel.find({}, function(err, movies) {
+            if(err) {
+                next(err);
+            } else {
+                for (let movie of movies) {
+                    movieList.push({id: movie._id, name: movie.name, released_on: movie.released_on});
+                }
+                res.json({status: 'success', message: 'movies list found!', data: {moviesList}});
+            }
+        });
+    },
+    updateById: function(req, res, next) {
+        
     }
-});
-
-module.exports = mongoose.model('Movie', MovieSchema);
+}
