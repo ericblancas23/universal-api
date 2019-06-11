@@ -33,5 +33,17 @@ module.exports = {
                 res.json({status: 'success', message: 'Movie updated successfully', data: null});
             }
         });
+    },
+    deleteById: function(req, res, next) {
+        movieModel.findByIdAndRemove(req.params.movieId, function(err, movieInfo) {
+            if(err) {
+                next(err);
+            } else {
+                res.json({status: 'success', message: 'movie deleted', data: null});
+            }
+        });
+    },
+    create: function(res, req, next) {
+        
     }
 }
