@@ -25,6 +25,13 @@ module.exports = {
         });
     },
     updateById: function(req, res, next) {
-        
+        console.log(req.body);
+        movieModel.findByIdAndUpdate(req.params.movieId, function(err, movieInfo) {
+            if(err) {
+                next(err);
+            } else {
+                res.json({status: 'success', message: 'Movie updated successfully', data: null});
+            }
+        });
     }
 }
