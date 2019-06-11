@@ -44,6 +44,12 @@ module.exports = {
         });
     },
     create: function(res, req, next) {
-        
+        movieModel.create({name: req.body.name, released_on: req.body.released_on}, function(err, result) {
+            if(err) {
+                next(err);
+            } else {
+                res.json({status: 'success', message: 'movie created', data: null});
+            }
+        });
     }
 }
