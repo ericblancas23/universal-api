@@ -7,3 +7,5 @@ router.post('/', movieController.create);
 router.get('/:movieId', movieController.getById);
 router.put('/:movieId', movieController.updateById);
 router.delete('/:movieId', movieController.deleteById);
+
+module.exports = router;
